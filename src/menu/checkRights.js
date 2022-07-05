@@ -1,50 +1,36 @@
-import React from "react"
-import { connect } from "react-redux"
+import React from "react";
+import { connect } from "react-redux";
 import { Nav } from "react-bootstrap";
-import { IndexLinkContainer } from "react-router-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 const CheckRights = ({ tags, role }) => {
-  let returned = false
+  let returned = false;
 
-  const taskListRights = [
-    "ROLE_ADMIN",
-    "ROLE_DEVICETEST"
-  ]
+  const taskListRights = ["ROLE_ADMIN", "ROLE_DEVICETEST"];
 
-  const deviceRights = [
-    "ROLE_ADMIN",
-    "ROLE_DEVICE"
-  ]
+  const deviceRights = ["ROLE_ADMIN", "ROLE_DEVICE"];
 
-  const billingRights = [
-    "ROLE_ADMIN"
-  ]
+  const billingRights = ["ROLE_ADMIN"];
 
-  const contentRights = [
-    "ROLE_ADMIN",
-    "ROLE_SECRETARY"
-  ]
+  const contentRights = ["ROLE_ADMIN", "ROLE_SECRETARY"];
 
-  const enterviewRights = [
-    "ROLE_ADMIN",
-    "ROLE_SECRETARY"
-  ]
+  const enterviewRights = ["ROLE_ADMIN", "ROLE_SECRETARY"];
 
   if (role === "Device") {
     for (let i = 0; i < tags.length; i++) {
       if (deviceRights.includes(tags[i])) {
-        returned = true
+        returned = true;
         return (
           <>
-            <IndexLinkContainer to="/devices">
+            <LinkContainer to="/devices">
               <Nav.Link id="menu-devices">Laitteet</Nav.Link>
-            </IndexLinkContainer>
+            </LinkContainer>
 
-            <IndexLinkContainer to="/testevent">
+            <LinkContainer to="/testevent">
               <Nav.Link id="menu-testevent">Tulokset</Nav.Link>
-            </IndexLinkContainer>
+            </LinkContainer>
           </>
-        )
+        );
       }
     }
   }
@@ -52,12 +38,12 @@ const CheckRights = ({ tags, role }) => {
   if (role === "Task") {
     for (let i = 0; i < tags.length; i++) {
       if (taskListRights.includes(tags[i])) {
-        returned = true
+        returned = true;
         return (
-          <IndexLinkContainer to="/tasklist">
+          <LinkContainer to="/tasklist">
             <Nav.Link id="menu-tasklist">Työlista</Nav.Link>
-          </IndexLinkContainer>
-        )
+          </LinkContainer>
+        );
       }
     }
   }
@@ -65,12 +51,12 @@ const CheckRights = ({ tags, role }) => {
   if (role === "Billing") {
     for (let i = 0; i < tags.length; i++) {
       if (billingRights.includes(tags[i])) {
-        returned = true
+        returned = true;
         return (
-          <IndexLinkContainer to="/billing">
+          <LinkContainer to="/billing">
             <Nav.Link id="menu-billing">Laskutus</Nav.Link>
-          </IndexLinkContainer>
-        )
+          </LinkContainer>
+        );
       }
     }
   }
@@ -78,12 +64,12 @@ const CheckRights = ({ tags, role }) => {
   if (role === "Content") {
     for (let i = 0; i < tags.length; i++) {
       if (contentRights.includes(tags[i])) {
-        returned = true
+        returned = true;
         return (
-          <IndexLinkContainer to="/contentmarker">
+          <LinkContainer to="/contentmarker">
             <Nav.Link id="menu-contentmarker">Sisältömerkintä</Nav.Link>
-          </IndexLinkContainer>
-        )
+          </LinkContainer>
+        );
       }
     }
   }
@@ -91,14 +77,14 @@ const CheckRights = ({ tags, role }) => {
   if (role === "Enterview") {
     for (let i = 0; i < tags.length; i++) {
       if (enterviewRights.includes(tags[i])) {
-        returned = true
+        returned = true;
         return (
           <>
-            <IndexLinkContainer to="/enterview">
+            <LinkContainer to="/enterview">
               <Nav.Link id="menu-enterview">Lausuttavat</Nav.Link>
-            </IndexLinkContainer>
+            </LinkContainer>
           </>
-        )
+        );
       }
     }
   }
@@ -106,14 +92,14 @@ const CheckRights = ({ tags, role }) => {
   if (role === "Doctor") {
     for (let i = 0; i < tags.length; i++) {
       if (tags[i] === "ROLE_DOCTOR") {
-        returned = true
+        returned = true;
         return (
           <>
-            <IndexLinkContainer to="/doctor">
+            <LinkContainer to="/doctor">
               <Nav.Link id="menu-doctor">Omat lausuttavat</Nav.Link>
-            </IndexLinkContainer>
+            </LinkContainer>
           </>
-        )
+        );
       }
     }
   }
@@ -121,28 +107,27 @@ const CheckRights = ({ tags, role }) => {
   if (role === "Admin") {
     for (let i = 0; i < tags.length; i++) {
       if (tags[i] === "ROLE_ADMIN") {
-        returned = true
+        returned = true;
         return (
           <>
-            <IndexLinkContainer to="/admin/examinations">
+            <LinkContainer to="/admin/examinations">
               <Nav.Link id="menu-examinations">Tutkimukset</Nav.Link>
-            </IndexLinkContainer>
+            </LinkContainer>
 
-            <IndexLinkContainer to="/admin/rights">
+            <LinkContainer to="/admin/rights">
               <Nav.Link>Käyttöoikeudet</Nav.Link>
-            </IndexLinkContainer>
+            </LinkContainer>
           </>
-        )
+        );
       }
     }
   }
 
   if (returned) {
-    return true
+    return true;
   } else {
-    return null
+    return null;
   }
-
-}
+};
 
 export default connect(null)(CheckRights);
