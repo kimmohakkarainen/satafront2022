@@ -5,18 +5,24 @@ import { connect } from "react-redux";
 import AttachmentProcess from "./attachmentprocess";
 import Menu from "./menu";
 import DeviceView from "./deviceview";
-import TaskView from "./taskview";
+/* import TaskView from "./taskview"; */
 import PersonAdminView from "./personadminview";
 import AddTestEvent from "./testeventview";
 import LogoutView from "./logoutview";
 import AccountView from "./accountview";
 import EnterView from "./enterview";
-import InvoiceView from "./invoiceview";
+/* import InvoiceView from "./invoiceview"; */
 import DoctorView from "./doctorview";
-import ContentmarkerView from "./contentmarkerview";
+/* import ContentmarkerView from "./contentmarkerview"; TODO to be refactored without table-next */
 import ExaminationAdminView from "./examinationview";
 
 import { fetchWhoAmI, fetchState } from "./actions";
+
+/* These routes to be refactored 
+        <Route exact path="/tasklist" component={TaskView} />
+        <Route exact path="/billing" component={InvoiceView} />
+        <Route exact path="/contentmarker" component={ContentmarkerView} />
+*/
 
 function App({ fetchWhoAmI, fetchState, person }) {
   return (
@@ -26,15 +32,12 @@ function App({ fetchWhoAmI, fetchState, person }) {
       <Routes>
         <Route exact path="/" component={DeviceView} />
         <Route exact path="/devices" component={DeviceView} />
-        <Route exact path="/tasklist" component={TaskView} />
         <Route exact path="/admin/rights" component={PersonAdminView} />
         <Route exact path="/testevent" component={AddTestEvent} />
         <Route exact path="/logout" component={LogoutView} />
         <Route exact path="/password" component={AccountView} />
         <Route exact path="/enterview" component={EnterView} />
-        <Route exact path="/billing" component={InvoiceView} />
         <Route exact path="/doctor" component={DoctorView} />
-        <Route exact path="/contentmarker" component={ContentmarkerView} />
         <Route
           exact
           path="/admin/examinations"
