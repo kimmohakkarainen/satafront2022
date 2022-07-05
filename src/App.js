@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 import AttachmentProcess from "./attachmentprocess";
@@ -14,6 +14,7 @@ import EnterView from "./enterview";
 import InvoiceView from "./invoiceview";
 import DoctorView from "./doctorview";
 import ContentmarkerView from "./contentmarkerview";
+import ExaminationAdminView from "./examinationview";
 
 import { fetchWhoAmI, fetchState } from "./actions";
 
@@ -22,22 +23,24 @@ function App({ fetchWhoAmI, fetchState, person }) {
     <BrowserRouter>
       <AttachmentProcess />
       <Menu />
-      <Route exact path="/" component={DeviceView} />
-      <Route exact path="/devices" component={DeviceView} />
-      <Route exact path="/tasklist" component={TaskView} />
-      <Route exact path="/admin/rights" component={PersonAdminView} />
-      <Route exact path="/testevent" component={AddTestEvent} />
-      <Route exact path="/logout" component={LogoutView} />
-      <Route exact path="/password" component={AccountView} />
-      <Route exact path="/enterview" component={EnterView} />
-      <Route exact path="/billing" component={InvoiceView} />
-      <Route exact path="/doctor" component={DoctorView} />
-      <Route exact path="/contentmarker" component={ContentmarkerView} />
-      <Route
-        exact
-        path="/admin/examinations"
-        component={ExaminationAdminView}
-      />
+      <Routes>
+        <Route exact path="/" component={DeviceView} />
+        <Route exact path="/devices" component={DeviceView} />
+        <Route exact path="/tasklist" component={TaskView} />
+        <Route exact path="/admin/rights" component={PersonAdminView} />
+        <Route exact path="/testevent" component={AddTestEvent} />
+        <Route exact path="/logout" component={LogoutView} />
+        <Route exact path="/password" component={AccountView} />
+        <Route exact path="/enterview" component={EnterView} />
+        <Route exact path="/billing" component={InvoiceView} />
+        <Route exact path="/doctor" component={DoctorView} />
+        <Route exact path="/contentmarker" component={ContentmarkerView} />
+        <Route
+          exact
+          path="/admin/examinations"
+          component={ExaminationAdminView}
+        />
+      </Routes>
     </BrowserRouter>
   );
 }
