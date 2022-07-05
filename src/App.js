@@ -1,10 +1,58 @@
-import "./styles.css";
+import React, { useEffect } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default function App() {
+import AttachmentProcess from "./attachmentprocess";
+import Menu from "./menu";
+import DeviceView from "./deviceview";
+import TaskView from "./taskview";
+import PersonAdminView from "./personadminview";
+import AddTestEvent from "./testeventview";
+import LogoutView from "./logoutview";
+import AccountView from "./accountview";
+import EnterView from "./enterview";
+import InvoiceView from "./invoiceview";
+import DoctorView from "./doctorview";
+import ContentmarkerView from "./contentmarkerview";
+
+import { fetchWhoAmI, fetchState } from "./actions";
+
+function App({ fetchWhoAmI, fetchState, person }) {
   return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
+    <BrowserRouter>
+      <AttachmentProcess />
+      <Menu />
+      <Route exact path="/" component={DeviceView} />
+      <Route exact path="/devices" component={DeviceView} />
+      <Route exact path="/tasklist" component={TaskView} />
+      <Route exact path="/admin/rights" component={PersonAdminView} />
+      <Route exact path="/testevent" component={AddTestEvent} />
+      <Route exact path="/logout" component={LogoutView} />
+      <Route exact path="/password" component={AccountView} />
+      <Route exact path="/enterview" component={EnterView} />
+      <Route exact path="/billing" component={InvoiceView} />
+      <Route exact path="/doctor" component={DoctorView} />
+      <Route exact path="/contentmarker" component={ContentmarkerView} />
+      <Route
+        exact
+        path="/admin/examinations"
+        component={ExaminationAdminView}
+      />
+    </BrowserRouter>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    person: state.person
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchWhoAmI: () => dispatch(fetchWhoAmI()),
+    fetchState: () => dispatch(fetchState())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
