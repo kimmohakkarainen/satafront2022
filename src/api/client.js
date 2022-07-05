@@ -1,10 +1,11 @@
 import axios from "axios";
 
-export const API_BASE_URL = "";
+/*export const API_BASE_URL = ""; */
+export const API_BASE_URL = "http://localhost:8080";
 
 export const client = axios.create({
   baseURL: API_BASE_URL,
-  maxRedirects:0,
+  maxRedirects: 0,
   headers: {
     "Content-Type": "application/json"
   }
@@ -14,11 +15,11 @@ export const client = axios.create({
  * Check each response whether content-type is not JSON. This indicates that
  * session has timed out
  */
-client.interceptors.response.use(function(response) {
+client.interceptors.response.use(function (response) {
   const type = response.headers["content-type"];
   const notValid = /text\/html/.test(type);
 
-  if(notValid) {
+  if (notValid) {
     window.location.href = "/logout";
   } else {
     return response;
