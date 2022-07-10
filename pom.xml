@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <-- parent>
+      <groupId>fi.atoz</groupId>
+      <artifactId>tiedot2</artifactId>
+      <version>2.0.8</version>
+   </parent --!>
+
+   <groupId>fi.atoz</groupId>
+   <artifactId>tiedot2-frontend</artifactId>
+   <version>2.1.0-SNAPSHOT</version>
+   <name>tiedot2-frontend</name>
+   <description>Front End UI for Tieto2</description>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>1.11.3</version>
+            <configuration>
+               <installDirectory>target</installDirectory>
+               <nodeVersion>v14.17.5</nodeVersion>
+               <npmVersion>8.3.1</npmVersion>
+            </configuration>
+            <executions>
+               <execution>
+                  <id>install node and npm</id>
+                  <goals>
+                     <goal>install-node-and-npm</goal>
+                  </goals>
+               </execution>
+               <execution>
+                  <id>npm install</id>
+                  <goals>
+                     <goal>npm</goal>
+                  </goals>
+                  <phase>generate-resources</phase>
+               </execution>
+               <execution>
+                  <id>npm run build</id>
+                  <goals>
+                     <goal>npm</goal>
+                  </goals>
+                  <phase>generate-resources</phase>
+                  <configuration>
+                     <arguments>run build</arguments>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>3.1.0</version>
+            <configuration>
+               <filesets>
+                  <fileset>
+                     <directory>build</directory>
+                     <followSymlinks>false</followSymlinks>
+                  </fileset>
+                  <fileset>
+                     <directory>node_modules</directory>
+                     <followSymlinks>false</followSymlinks>
+                  </fileset>
+                  <!--
+                  <fileset>
+                     <directory>.</directory>
+                     <includes>
+                        <include>package-lock.json</include>
+                     </includes>
+                     <followSymlinks>false</followSymlinks>
+                  </fileset>
+                  -->
+               </filesets>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+
+</project>
+
