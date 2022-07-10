@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
    <modelVersion>4.0.0</modelVersion>
 
-   <-- parent>
+   <!-- parent>
       <groupId>fi.atoz</groupId>
       <artifactId>tiedot2</artifactId>
       <version>2.0.8</version>
-   </parent --!>
+   </parent -->
 
    <groupId>fi.atoz</groupId>
    <artifactId>tiedot2-frontend</artifactId>
