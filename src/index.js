@@ -4,12 +4,12 @@ import { createRoot } from "react-dom/client";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { composeWithDevTools } from "@redux-devtools/extension";
 
 import moment from "moment";
 import "moment/locale/fi";
 import MomentLocalizer from "react-widgets-moment";
-import Localization from "react-widgets/Localization";
+import { Localization } from "react-widgets";
 
 import tieto2State from "./reducers";
 
