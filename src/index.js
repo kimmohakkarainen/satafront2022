@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 import moment from "moment";
 import "moment/locale/fi";
@@ -16,8 +17,8 @@ import App from "./App";
 
 const reduxState = createStore(
   tieto2State,
-  /*  composeWithDevTools(applyMiddleware(thunk)) */
-  applyMiddleware(thunk)
+  composeWithDevTools(applyMiddleware(thunk))
+  /* applyMiddleware(thunk) */
 );
 
 moment.locale("fi");
