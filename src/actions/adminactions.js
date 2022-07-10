@@ -1,13 +1,14 @@
 import * as api from "../api";
 
 export function postLogout() {
-  return dispatch => {
-    api.postLogout()
-      .then(resp => {
+  return (dispatch) => {
+    api
+      .postLogout()
+      .then((resp) => {
         console.log("logout successfull");
         window.location.href = "/logout";
       })
-      .catch(error => {
+      .catch((error) => {
         console.log("logout error");
         window.location.href = "/logout";
       });
@@ -16,12 +17,16 @@ export function postLogout() {
 
 export function fetchWhoAmI() {
   return (dispatch) => {
-    api.getWhoAmI().then((resp) => {
-      dispatch(fetchWhoAmiSucceeded(resp.data));
-    }).catch(error => {
-      dispatch(connectionError(error));
-    });
-  }
+    api
+      .getWhoAmI()
+      .then((resp) => {
+        console.log(resp);
+        dispatch(fetchWhoAmiSucceeded(resp.data));
+      })
+      .catch((error) => {
+        dispatch(connectionError(error));
+      });
+  };
 }
 
 export function fetchWhoAmiSucceeded(data) {
@@ -34,7 +39,8 @@ export function fetchWhoAmiSucceeded(data) {
 }
 
 export function connectionError(error) {
-  const errorcode = error.response == null ? 'Connection error' : error.response;
+  const errorcode =
+    error.response == null ? "Connection error" : error.response;
 
   if (error.response.status === 401) {
     return {
@@ -42,24 +48,27 @@ export function connectionError(error) {
       payload: {
         error: error.response.status + ": Incorrect password provided"
       }
-    }
+    };
   } else {
     return {
       type: "CONNECTION_ERROR",
       payload: {
         error: error.response.status
       }
-    }
+    };
   }
 }
 
 export function postPersons(person) {
   return (dispatch) => {
-    api.postPersons(person).then((resp) => {
-      dispatch(fetchPersonsSucceeded(resp.data));
-    }).catch(error => {
-      dispatch(connectionError(error));
-    });
+    api
+      .postPersons(person)
+      .then((resp) => {
+        dispatch(fetchPersonsSucceeded(resp.data));
+      })
+      .catch((error) => {
+        dispatch(connectionError(error));
+      });
   };
 }
 
@@ -68,37 +77,42 @@ export function fetchPersonsSucceeded(data) {
     type: "FETCH_PERSONS_SUCCEEDED",
     payload: {
       persons: data.persons,
-      tags: data.tags,
+      tags: data.tags
     }
   };
 }
 
 export function postPassword(params) {
   return (dispatch) => {
-    api.postPassword(params).then((resp) => {
-      dispatch(fetchPersonsSucceeded(resp.data));
-    }).catch(error => {
-      dispatch(connectionError(error));
-    });
+    api
+      .postPassword(params)
+      .then((resp) => {
+        dispatch(fetchPersonsSucceeded(resp.data));
+      })
+      .catch((error) => {
+        dispatch(connectionError(error));
+      });
   };
 }
 
-
 export function getExaminations() {
-  return dispatch => {
-    api.getExaminations().then(resp => {
+  return (dispatch) => {
+    api.getExaminations().then((resp) => {
       dispatch(fetchExaminationsSucceeded(resp.data));
     });
   };
 }
 
 export function modifyExamination(data) {
-  return dispatch => {
-    api.postExamination(data).then(resp => {
-      dispatch(fetchExaminationsSucceeded(resp.data));
-    }).catch(error => {
-      console.error(error)
-    });
+  return (dispatch) => {
+    api
+      .postExamination(data)
+      .then((resp) => {
+        dispatch(fetchExaminationsSucceeded(resp.data));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 }
 
@@ -111,24 +125,29 @@ export function fetchExaminationsSucceeded(data) {
   };
 }
 
-
 export function fetchContentmarkableTasks() {
-  return dispatch => {
-    api.getContentmarkableTasks().then(resp => {
-      dispatch(fetchContentmarkableTasksSucceeded(resp.data));
-    }).catch(error => {
-      dispatch(connectionError(error));
-    })
+  return (dispatch) => {
+    api
+      .getContentmarkableTasks()
+      .then((resp) => {
+        dispatch(fetchContentmarkableTasksSucceeded(resp.data));
+      })
+      .catch((error) => {
+        dispatch(connectionError(error));
+      });
   };
 }
 
 export function addContentmarker(Person, Task) {
-  return dispatch => {
-    api.addContentmarker(Task.taskId).then(resp => {
-      dispatch(fetchContentmarkableTasksSucceeded(resp.data));
-    }).catch(error => {
-      dispatch(connectionError(error));
-    })
+  return (dispatch) => {
+    api
+      .addContentmarker(Task.taskId)
+      .then((resp) => {
+        dispatch(fetchContentmarkableTasksSucceeded(resp.data));
+      })
+      .catch((error) => {
+        dispatch(connectionError(error));
+      });
   };
 }
 
@@ -142,12 +161,15 @@ export function fetchContentmarkableTasksSucceeded(data) {
 }
 
 export function fetchAllContentmarkableTasks() {
-  return dispatch => {
-    api.getContentmarkableAll().then(resp => {
-      dispatch(fetchAllContentmarkableSucceeded(resp.data));
-    }).catch(error => {
-      dispatch(connectionError(error));
-    })
+  return (dispatch) => {
+    api
+      .getContentmarkableAll()
+      .then((resp) => {
+        dispatch(fetchAllContentmarkableSucceeded(resp.data));
+      })
+      .catch((error) => {
+        dispatch(connectionError(error));
+      });
   };
 }
 
@@ -159,4 +181,3 @@ export function fetchAllContentmarkableSucceeded(data) {
     }
   };
 }
-

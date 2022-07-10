@@ -25,6 +25,11 @@ import { fetchWhoAmI, fetchState } from "./actions";
 */
 
 function App({ fetchWhoAmI, fetchState, person }) {
+  useEffect(() => {
+    fetchWhoAmI();
+    setInterval(() => fetchState(), 30000);
+  }, [fetchWhoAmI]);
+
   return (
     <BrowserRouter>
       <AttachmentProcess />
