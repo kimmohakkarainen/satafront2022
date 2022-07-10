@@ -35,18 +35,18 @@ function App({ fetchWhoAmI, fetchState, person }) {
       <AttachmentProcess />
       <Menu />
       <Routes>
-        <Route exact path="/" component={DeviceView} />
-        <Route exact path="/devices" component={DeviceView} />
-        <Route exact path="/admin/rights" component={PersonAdminView} />
-        <Route exact path="/testevent" component={AddTestEvent} />
-        <Route exact path="/logout" component={LogoutView} />
-        <Route exact path="/password" component={AccountView} />
-        <Route exact path="/enterview" component={EnterView} />
-        <Route exact path="/doctor" component={DoctorView} />
+        <Route exact path="/" element={<DeviceView />} />
+        <Route exact path="/devices" element={<consoleDeviceView />} />
+        <Route exact path="/admin/rights" element={<PersonAdminView />} />
+        <Route exact path="/testevent" element={<AddTestEvent />} />
+        <Route exact path="/logout" element={<LogoutView />} />
+        <Route exact path="/password" element={<AccountView />} />
+        <Route exact path="/enterview" element={<EnterView />} />
+        <Route exact path="/doctor" element={<DoctorView />} />
         <Route
           exact
           path="/admin/examinations"
-          component={ExaminationAdminView}
+          element={<ExaminationAdminView />}
         />
       </Routes>
     </BrowserRouter>
