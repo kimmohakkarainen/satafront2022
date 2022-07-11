@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
-import { Button, Card, Col, Form, Row } from "react-bootstrap"
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 
-import { fetchContentmarkableTasks, fetchAllContentmarkableTasks, addContentmarker } from "../actions"
+import {
+  fetchContentmarkableTasks,
+  fetchAllContentmarkableTasks,
+  addContentmarker
+} from "../actions";
 
 const ContentmarkerView = ({
   addContentmarker,
@@ -14,52 +18,57 @@ const ContentmarkerView = ({
   markableTasksAll,
   person
 }) => {
-  const [showAll, setShowAll] = useState(false)
-  const [tableData, setTableData] = useState([])
+  const [showAll, setShowAll] = useState(false);
+  const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
     fetchContentmarkableTasks();
-  }, [fetchContentmarkableTasks])
+  }, [fetchContentmarkableTasks]);
 
   useEffect(() => {
     if (showAll) {
-      setTableData(markableTasksAll)
+      setTableData(markableTasksAll);
     } else {
-      setTableData(markableTasks)
+      setTableData(markableTasks);
     }
-  }, [markableTasksAll, markableTasks])
+  }, [markableTasksAll, markableTasks, showAll]);
 
   const handleChange = () => {
     if (showAll) {
-      fetchContentmarkableTasks()
-      setTableData([])
+      fetchContentmarkableTasks();
+      setTableData([]);
       setShowAll(false);
     } else {
-      fetchAllContentmarkableTasks()
-      setTableData([])
+      fetchAllContentmarkableTasks();
+      setTableData([]);
       setShowAll(true);
     }
-  }
+  };
 
   const buttonFormatter = (cell, row, rowIndex, formatExtradata) => {
     return (
       <>
         {console.log(row)}
-        {showAll === false &&
-          <Button id={`taskid-${row.taskId}`} onClick={() => addContentmarker(person, row)}>Kuittaa</Button>
-        }
-        {showAll === true &&
+        {showAll === false && (
+          <Button
+            id={`taskid-${row.taskId}`}
+            onClick={() => addContentmarker(person, row)}
+          >
+            Kuittaa
+          </Button>
+        )}
+        {showAll === true && (
           <>
-            {
-              row.contentMarker &&
-              <Button variant="success" active>OK</Button>
-            }
+            {row.contentMarker && (
+              <Button variant="success" active>
+                OK
+              </Button>
+            )}
           </>
-        }
-
+        )}
       </>
-    )
-  }
+    );
+  };
 
   const columns = [
     {
@@ -87,7 +96,7 @@ const ContentmarkerView = ({
       dataField: "vastaanottoPaiva",
       text: "Potilaan vastaanotto"
     }
-  ]
+  ];
 
   return (
     <>
@@ -116,16 +125,12 @@ const ContentmarkerView = ({
           </Row>
         </Card.Header>
         <Card.Body>
-          <BootstrapTable
-            keyField="id"
-            columns={columns}
-            data={tableData}
-          />
+          <BootstrapTable keyField="id" columns={columns} data={tableData} />
         </Card.Body>
       </Card>
     </>
   );
-}
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -138,7 +143,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchContentmarkableTasks: () => dispatch(fetchContentmarkableTasks()),
-    fetchAllContentmarkableTasks: () => dispatch(fetchAllContentmarkableTasks()),
+    fetchAllContentmarkableTasks: () =>
+      dispatch(fetchAllContentmarkableTasks()),
     addContentmarker: (Person, Task) => dispatch(addContentmarker(Person, Task))
   };
 };
