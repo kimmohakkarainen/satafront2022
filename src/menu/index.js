@@ -25,7 +25,7 @@ function Menu({ clearError, person, error }) {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto font-weight-bold">
+          <Nav className="me-auto font-weight-bold">
             <CheckRights tags={tags} role="Device" />
 
             <CheckRights tags={tags} role="Task" />
@@ -42,7 +42,7 @@ function Menu({ clearError, person, error }) {
           </Nav>
           <Nav id="loggedUsr">
             <NavDropdown
-              alignRight
+              align="end"
               eventKey={6}
               title={fullname}
               id="user-dropdown"
