@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import BootstrapTable from "react-bootstrap-table-next";
+import ContentMarkerTable from "./contentmarkertable";
 
 import {
   fetchContentmarkableTasks,
@@ -125,7 +125,11 @@ const ContentmarkerView = ({
           </Row>
         </Card.Header>
         <Card.Body>
-          <BootstrapTable keyField="id" columns={columns} data={tableData} />
+          <ContentMarkerTable
+            keyField="id"
+            columns={columns}
+            data={tableData}
+          />
         </Card.Body>
       </Card>
     </>

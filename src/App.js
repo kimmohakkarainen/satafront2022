@@ -13,7 +13,7 @@ import AccountView from "./accountview";
 import EnterView from "./enterview";
 /* import InvoiceView from "./invoiceview"; */
 import DoctorView from "./doctorview";
-/* import ContentmarkerView from "./contentmarkerview"; TODO to be refactored without table-next */
+import ContentmarkerView from "./contentmarkerview";
 import ExaminationAdminView from "./examinationview";
 
 import { fetchWhoAmI, fetchState } from "./actions";
@@ -21,7 +21,6 @@ import { fetchWhoAmI, fetchState } from "./actions";
 /* These routes to be refactored 
         <Route exact path="/tasklist" component={TaskView} />
         <Route exact path="/billing" component={InvoiceView} />
-        <Route exact path="/contentmarker" component={ContentmarkerView} />
 */
 
 function App({ fetchWhoAmI, fetchState, person }) {
@@ -42,6 +41,7 @@ function App({ fetchWhoAmI, fetchState, person }) {
         <Route exact path="/logout" element={<LogoutView />} />
         <Route exact path="/password" element={<AccountView />} />
         <Route exact path="/enterview" element={<EnterView />} />
+        <Route exact path="/contentmarker" element={<ContentmarkerView />} />
         <Route exact path="/doctor" element={<DoctorView />} />
         <Route
           exact
