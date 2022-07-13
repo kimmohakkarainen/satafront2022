@@ -41,20 +41,19 @@ function Menu({ clearError, person, error }) {
             <CheckRights tags={tags} role="Admin" />
           </Nav>
           <Nav id="loggedUsr">
-            <NavDropdown
-              align="end"
-              eventKey={6}
-              title={fullname}
-              id="user-dropdown"
-            >
-              <LinkContainer to="/password" exact>
-                <NavDropdown.Item id="menu-password" eventKey={6.1}>
+            <NavDropdown align="end" title={fullname} id="user-dropdown">
+              <LinkContainer to="/password">
+                <NavDropdown.Item
+                  eventKey={6}
+                  id="menu-password"
+                  eventKey={6.1}
+                >
                   Vaihda salasana
                 </NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Item divider />
-              <LinkContainer to="/logout" exact>
-                <NavDropdown.Item id="menu-logout" eventKey={6.4}>
+              <LinkContainer to="/logout">
+                <NavDropdown.Item eventKey={7} id="menu-logout" eventKey={6.4}>
                   Kirjaudu ulos
                 </NavDropdown.Item>
               </LinkContainer>

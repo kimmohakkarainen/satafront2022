@@ -47,7 +47,7 @@ export default function ContentMarkerTable({
       <tbody>
         {data.map((row) => {
           return (
-            <tr>
+            <tr key={row.taskId}>
               <td>
                 <ButtonFormatter
                   row={row}

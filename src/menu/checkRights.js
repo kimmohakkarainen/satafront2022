@@ -22,11 +22,11 @@ const CheckRights = ({ tags, role }) => {
         returned = true;
         return (
           <>
-            <LinkContainer to="/devices" exact>
+            <LinkContainer to="/devices">
               <Nav.Link id="menu-devices">Laitteet</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to="/testevent" exact>
+            <LinkContainer to="/testevent">
               <Nav.Link id="menu-testevent">Tulokset</Nav.Link>
             </LinkContainer>
           </>
@@ -40,7 +40,7 @@ const CheckRights = ({ tags, role }) => {
       if (taskListRights.includes(tags[i])) {
         returned = true;
         return (
-          <LinkContainer to="/tasklist" exact>
+          <LinkContainer to="/tasklist">
             <Nav.Link id="menu-tasklist">Työlista</Nav.Link>
           </LinkContainer>
         );
@@ -53,7 +53,7 @@ const CheckRights = ({ tags, role }) => {
       if (billingRights.includes(tags[i])) {
         returned = true;
         return (
-          <LinkContainer to="/billing" exact>
+          <LinkContainer to="/billing">
             <Nav.Link id="menu-billing">Laskutus</Nav.Link>
           </LinkContainer>
         );
@@ -66,7 +66,7 @@ const CheckRights = ({ tags, role }) => {
       if (contentRights.includes(tags[i])) {
         returned = true;
         return (
-          <LinkContainer to="/contentmarker" exact>
+          <LinkContainer to="/contentmarker">
             <Nav.Link id="menu-contentmarker">Sisältömerkintä</Nav.Link>
           </LinkContainer>
         );
@@ -80,7 +80,7 @@ const CheckRights = ({ tags, role }) => {
         returned = true;
         return (
           <>
-            <LinkContainer to="/enterview" exact>
+            <LinkContainer to="/enterview">
               <Nav.Link id="menu-enterview">Lausuttavat</Nav.Link>
             </LinkContainer>
           </>
@@ -95,7 +95,7 @@ const CheckRights = ({ tags, role }) => {
         returned = true;
         return (
           <>
-            <LinkContainer to="/doctor" exact>
+            <LinkContainer to="/doctor">
               <Nav.Link id="menu-doctor">Omat lausuttavat</Nav.Link>
             </LinkContainer>
           </>
@@ -110,11 +110,11 @@ const CheckRights = ({ tags, role }) => {
         returned = true;
         return (
           <>
-            <LinkContainer to="/admin/examinations" exact>
+            <LinkContainer to="/admin/examinations">
               <Nav.Link id="menu-examinations">Tutkimukset</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to="/admin/rights" exact>
+            <LinkContainer to="/admin/rights">
               <Nav.Link>Käyttöoikeudet</Nav.Link>
             </LinkContainer>
           </>
