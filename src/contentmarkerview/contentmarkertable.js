@@ -1,7 +1,37 @@
 import React from "react";
 import { Table, Button, Badge } from "react-bootstrap";
 
-export default function ContentMarkerTable({ columns, data }) {
+const ButtonFormatter = ({ row, showAll, addContentmarker, person }) => {
+  return (
+    <>
+      {showAll === false && (
+        <Button
+          id={`taskid-${row.taskId}`}
+          onClick={() => addContentmarker(person, row)}
+        >
+          Kuittaa
+        </Button>
+      )}
+      {showAll === true && (
+        <>
+          {row.contentMarker && (
+            <Button variant="success" active>
+              OK
+            </Button>
+          )}
+        </>
+      )}
+    </>
+  );
+};
+
+export default function ContentMarkerTable({
+  showAll,
+  columns,
+  data,
+  person,
+  addContentmarker
+}) {
   return (
     <Table striped hover>
       <thead>
@@ -18,7 +48,14 @@ export default function ContentMarkerTable({ columns, data }) {
         {data.map((row) => {
           return (
             <tr>
-              <td>{row.taskId}</td>
+              <td>
+                <ButtonFormatter
+                  row={row}
+                  showAll={showAll}
+                  person={person}
+                  addContentmarker={addContentmarker}
+                />
+              </td>
               <td>{row.tutkimusPaiva}</td>
               <td>{row.tutkimus.label}</td>
               <td>{row.hetu}</td>

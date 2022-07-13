@@ -126,6 +126,9 @@ const ContentmarkerView = ({
         </Card.Header>
         <Card.Body>
           <ContentMarkerTable
+            person={person}
+            addContentmarker={addContentmarker}
+            showAll={showAll}
             keyField="id"
             columns={columns}
             data={tableData}
