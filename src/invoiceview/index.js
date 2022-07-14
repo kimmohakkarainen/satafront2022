@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { fetchExcel, fetchPreview, fetchState } from "../actions"
+import { fetchExcel, fetchPreview, fetchState } from "../actions";
 
-import { Button, Card, Col, Form, Row } from "react-bootstrap"
-import BootstrapTable from "react-bootstrap-table-next"
-import { DatePicker, Multiselect } from "react-widgets"
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import InvoiceTable from "./invoicetable";
+import { DatePicker, Multiselect } from "react-widgets";
 import "react-widgets/styles.css";
 import moment from "moment";
 import momentLocalizer from "react-widgets-moment";
 
-const localizer = new momentLocalizer(moment)
+const localizer = new momentLocalizer(moment);
 
 const InvoiceView = ({
   fetchPreview,
@@ -22,10 +22,10 @@ const InvoiceView = ({
   examinationOptions,
   doctorOptions
 }) => {
-  const [formattedBeginDate, setFormattedBeginDate] = useState("")
-  const [apiBeginDate, setApiBeginDate] = useState("")
-  const [formattedEndDate, setFormattedEndDate] = useState("")
-  const [apiEndDate, setApiEndDate] = useState("")
+  const [formattedBeginDate, setFormattedBeginDate] = useState("");
+  const [apiBeginDate, setApiBeginDate] = useState("");
+  const [formattedEndDate, setFormattedEndDate] = useState("");
+  const [apiEndDate, setApiEndDate] = useState("");
 
   useEffect(() => {
     fetchPreview({
@@ -33,63 +33,42 @@ const InvoiceView = ({
       endDate: null,
       doctorFilter: [],
       examinationFilter: []
-    })
-  }, [])
+    });
+  }, []);
 
   if (beginDate && formattedBeginDate === "") {
-    const newDate = new Date(beginDate)
-    setFormattedBeginDate(newDate)
+    const newDate = new Date(beginDate);
+    setFormattedBeginDate(newDate);
 
-    const year = newDate.getFullYear()
-    let month = newDate.getMonth() + 1
+    const year = newDate.getFullYear();
+    let month = newDate.getMonth() + 1;
     if (month < 10) {
-      month = "0" + month.toString()
+      month = "0" + month.toString();
     }
-    let date = newDate.getDate()
+    let date = newDate.getDate();
     if (date < 10) {
-      date = "0" + date.toString()
+      date = "0" + date.toString();
     }
 
-    setApiBeginDate(`${year}-${month}-${date}`)
+    setApiBeginDate(`${year}-${month}-${date}`);
   }
 
   if (endDate && formattedEndDate === "") {
-    const newDate = new Date(endDate)
-    setFormattedEndDate(newDate)
+    const newDate = new Date(endDate);
+    setFormattedEndDate(newDate);
 
-    const year = newDate.getFullYear()
-    let month = newDate.getMonth() + 1
+    const year = newDate.getFullYear();
+    let month = newDate.getMonth() + 1;
     if (month < 10) {
-      month = "0" + month.toString()
+      month = "0" + month.toString();
     }
-    let date = newDate.getDate()
+    let date = newDate.getDate();
     if (date < 10) {
-      date = "0" + date.toString()
+      date = "0" + date.toString();
     }
 
-    setApiEndDate(`${year}-${month}-${date}`)
+    setApiEndDate(`${year}-${month}-${date}`);
   }
-
-  const columns = [{
-    dataField: "id",
-    text: "ID",
-    hidden: true
-  }, {
-    dataField: "doctor",
-    text: "Lääkäri"
-  }, {
-    dataField: "examination",
-    text: "Tutkimus"
-  }, {
-    dataField: "dpart",
-    text: "Lääkärin korvaus yht."
-  }, {
-    dataField: "sum",
-    text: "Laskutettava yhteensä"
-  }, {
-    dataField: "count",
-    text: "lkm"
-  }]
 
   const handleExcelClick = () => {
     fetchExcel({
@@ -97,50 +76,50 @@ const InvoiceView = ({
       endDate: apiEndDate,
       doctorFilter: doctorFilter,
       examinationFilter: examinationFilter
-    })
-  }
+    });
+  };
 
   const handleBeginDateChange = (e) => {
-    setFormattedBeginDate(e)
-    const year = e.getFullYear()
-    let month = e.getMonth() + 1
+    setFormattedBeginDate(e);
+    const year = e.getFullYear();
+    let month = e.getMonth() + 1;
     if (month < 10) {
-      month = "0" + month.toString()
+      month = "0" + month.toString();
     }
-    let date = e.getDate()
+    let date = e.getDate();
     if (date < 10) {
-      date = "0" + date.toString()
+      date = "0" + date.toString();
     }
-    setApiBeginDate(`${year}-${month}-${date}`)
+    setApiBeginDate(`${year}-${month}-${date}`);
 
     fetchPreview({
       beginDate: `${year}-${month}-${date}`,
       endDate: apiEndDate,
       doctorFilter: doctorFilter,
       examinationFilter: examinationFilter
-    })
-  }
+    });
+  };
 
   const handleEndDateChange = (e) => {
-    setFormattedEndDate(e)
-    const year = e.getFullYear()
-    let month = e.getMonth() + 1
+    setFormattedEndDate(e);
+    const year = e.getFullYear();
+    let month = e.getMonth() + 1;
     if (month < 10) {
-      month = "0" + month.toString()
+      month = "0" + month.toString();
     }
-    let date = e.getDate()
+    let date = e.getDate();
     if (date < 10) {
-      date = "0" + date.toString()
+      date = "0" + date.toString();
     }
 
-    setApiEndDate(`${year}-${month}-${date}`)
+    setApiEndDate(`${year}-${month}-${date}`);
     fetchPreview({
       beginDate: apiBeginDate,
       endDate: `${year}-${month}-${date}`,
       doctorFilter: doctorFilter,
       examinationFilter: examinationFilter
-    })
-  }
+    });
+  };
 
   const handleDoctorChange = (e) => {
     fetchPreview({
@@ -148,8 +127,8 @@ const InvoiceView = ({
       endDate: apiEndDate,
       doctorFilter: e,
       examinationFilter: examinationFilter
-    })
-  }
+    });
+  };
 
   const handleExaminationChange = (e) => {
     fetchPreview({
@@ -157,91 +136,91 @@ const InvoiceView = ({
       endDate: apiEndDate,
       doctorFilter: doctorFilter,
       examinationFilter: e
-    })
-  }
+    });
+  };
 
   return (
     <div className="billingContainer">
       <Card>
         <Card.Header>
-          <Card.Title className="font-weight-bold">
-            Laskutus
-          </Card.Title>
+          <Card.Title className="font-weight-bold">Laskutus</Card.Title>
         </Card.Header>
         <Card.Body>
           <Form>
             <Card className="mb-2">
               <Card.Body>
-                <Card.Text>
-                  <Row>
-                    <Col xs={1}><b>Aloitus</b></Col>
-                    <Col xs={3}>
-                      {formattedBeginDate !== "" &&
-                        <DatePicker
-                          id="begindate-input"
-                          value={formattedBeginDate}
-                          onChange={(e) => handleBeginDateChange(e)}
-                        />}
-                    </Col>
-                    <Col xs={1} />
-                    <Col xs={1}><b>Lopetus</b></Col>
-                    <Col xs={3}>
-                      {formattedEndDate !== "" &&
-                        <DatePicker
-                          id="enddate-input"
-                          value={formattedEndDate}
-                          onChange={(e) => handleEndDateChange(e)}
-                        />}
-                    </Col>
-                    <Col xs={1} />
-                    <Col xs={2}>
-                      <Button onClick={() => handleExcelClick()}>Tee lasku</Button>
-                    </Col>
-                  </Row>
-                </Card.Text>
+                <Row>
+                  <Col xs={1}>
+                    <b>Aloitus</b>
+                  </Col>
+                  <Col xs={3}>
+                    {formattedBeginDate !== "" && (
+                      <DatePicker
+                        id="begindate-input"
+                        value={formattedBeginDate}
+                        onChange={(e) => handleBeginDateChange(e)}
+                      />
+                    )}
+                  </Col>
+                  <Col xs={1} />
+                  <Col xs={1}>
+                    <b>Lopetus</b>
+                  </Col>
+                  <Col xs={3}>
+                    {formattedEndDate !== "" && (
+                      <DatePicker
+                        id="enddate-input"
+                        value={formattedEndDate}
+                        onChange={(e) => handleEndDateChange(e)}
+                      />
+                    )}
+                  </Col>
+                  <Col xs={1} />
+                  <Col xs={2}>
+                    <Button onClick={() => handleExcelClick()}>
+                      Tee lasku
+                    </Button>
+                  </Col>
+                </Row>
               </Card.Body>
             </Card>
             <Card className="mb-2">
               <Card.Body>
-                <Card.Text>
-                  <Col>
-                    <Row>
-                      <Col xs={2}><b>Lääkäri</b></Col>
-                      <Col xs={10}>
-                        <Multiselect
-                          dataKey="value"
-                          textField="label"
-                          data={doctorOptions}
-                          value={doctorFilter}
-                          onChange={(e) => handleDoctorChange(e)}
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col xs={2}><b>Tutkimus</b></Col>
-                      <Col xs={10}>
-                        <Multiselect
-                          dataKey="value"
-                          textField="label"
-                          data={examinationOptions}
-                          value={examinationFilter}
-                          onChange={(e) => handleExaminationChange(e)}
-                        />
-                      </Col>
-                    </Row>
-                  </Col>
-                </Card.Text>
+                <Col>
+                  <Row>
+                    <Col xs={2}>
+                      <b>Lääkäri</b>
+                    </Col>
+                    <Col xs={10}>
+                      <Multiselect
+                        dataKey="value"
+                        textField="label"
+                        data={doctorOptions}
+                        value={doctorFilter}
+                        onChange={(e) => handleDoctorChange(e)}
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs={2}>
+                      <b>Tutkimus</b>
+                    </Col>
+                    <Col xs={10}>
+                      <Multiselect
+                        dataKey="value"
+                        textField="label"
+                        data={examinationOptions}
+                        value={examinationFilter}
+                        onChange={(e) => handleExaminationChange(e)}
+                      />
+                    </Col>
+                  </Row>
+                </Col>
               </Card.Body>
             </Card>
             <Card>
               <Card.Body>
-                <Card.Text>
-                  <BootstrapTable
-                    keyField="id"
-                    columns={columns}
-                    data={preview}
-                  />
-                </Card.Text>
+                <InvoiceTable data={preview} />
               </Card.Body>
             </Card>
           </Form>
@@ -249,7 +228,7 @@ const InvoiceView = ({
       </Card>
     </div>
   );
-}
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -262,12 +241,16 @@ const mapStateToProps = (state) => {
     examinationFilter: state.examinationFilter,
     preview: state.preview
   };
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPreview: (beginDate, endDate, doctorFilter, examinationFilter) => dispatch(fetchPreview(beginDate, endDate, doctorFilter, examinationFilter)),
-    fetchExcel: (beginDate, endDate, doctorFilter, examinationFilter) => dispatch(fetchExcel(beginDate, endDate, doctorFilter, examinationFilter))
+    fetchPreview: (beginDate, endDate, doctorFilter, examinationFilter) =>
+      dispatch(
+        fetchPreview(beginDate, endDate, doctorFilter, examinationFilter)
+      ),
+    fetchExcel: (beginDate, endDate, doctorFilter, examinationFilter) =>
+      dispatch(fetchExcel(beginDate, endDate, doctorFilter, examinationFilter))
   };
 };
 
