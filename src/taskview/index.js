@@ -1,42 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { fetchTaskList, fetchTestTemplate, postTestEvent, fetchTaskListExcel } from "../actions";
-import BootstrapTable from "react-bootstrap-table-next";
-import { Button, Card, Col, Form, Modal, Row, Table } from "react-bootstrap"
+import {
+  fetchTaskList,
+  fetchTestTemplate,
+  postTestEvent,
+  fetchTaskListExcel
+} from "../actions";
+/* import BootstrapTable from "react-bootstrap-table-next"; */
+import TaskTable from "./tasktable";
+import { Button, Card, Col, Form, Modal, Row, Table } from "react-bootstrap";
 
-import { WeekNumber } from "../utils/week.js"
-import { FormatData } from "./formatData"
-import { FilterData } from "./filterData"
+import { WeekNumber } from "../utils/week.js";
+import { FormatData } from "./formatData";
+import { FilterData } from "./filterData";
 
 let currentWeekNumber = require("current-week-number");
 
-const TaskView = ({ fetchTaskList, fetchTestTemplate, postTestEvent, tasklist, testTemplate, error, testEvent, fetchTaskListExcel }) => {
+const TaskView = ({
+  fetchTaskList,
+  fetchTestTemplate,
+  postTestEvent,
+  tasklist,
+  testTemplate,
+  error,
+  testEvent,
+  fetchTaskListExcel
+}) => {
   const [inputs, setInputs] = useState({});
-  const [show, setShow] = useState(false)
-  const [filter, setFilter] = useState()
-  const [errorOccured, setErrorOccured] = useState(false)
-  const [formattedData, setFormattedData] = useState(tasklist)
-  const [validated, setValidated] = useState(false)
+  const [show, setShow] = useState(false);
+  const [filter, setFilter] = useState();
+  const [errorOccured, setErrorOccured] = useState(false);
+  const [formattedData, setFormattedData] = useState(tasklist);
+  const [validated, setValidated] = useState(false);
 
   const handleClose = () => {
-    setShow(false)
-    setErrorOccured(false)
-  }
+    setShow(false);
+    setErrorOccured(false);
+  };
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    fetchTaskList()
-  }, [fetchTaskList, testEvent])
+    fetchTaskList();
+  }, [fetchTaskList, testEvent]);
 
   useEffect(() => {
     if (error) {
-      setErrorOccured(true)
+      setErrorOccured(true);
     }
-  }, [error, errorOccured])
+  }, [error, errorOccured]);
 
   useEffect(() => {
-    setFormattedData(FormatData(tasklist, filter))
-  }, [tasklist, filter])
+    setFormattedData(FormatData(tasklist, filter));
+  }, [tasklist, filter]);
 
   const columns = [
     {
@@ -72,47 +87,47 @@ const TaskView = ({ fetchTaskList, fetchTestTemplate, postTestEvent, tasklist, t
   const rowEvents = {
     onClick: (e, row, rowIndex) => {
       if (row.testId !== -1) {
-        fetchTestTemplate(row.testId)
-        handleShow()
+        fetchTestTemplate(row.testId);
+        handleShow();
       }
     }
-  }
+  };
 
   const rowStyle = (row) => {
-    const style = {}
+    const style = {};
     if (row.testId < 0) {
-      style.backgroundColor = "rgba(0,0,0,.075)"
-      style.fontWeight = "bold"
+      style.backgroundColor = "rgba(0,0,0,.075)";
+      style.fontWeight = "bold";
     } else {
-      style.backgroundColor = "transparent"
+      style.backgroundColor = "transparent";
     }
 
-    tasklist.map(tl => {
+    tasklist.map((tl) => {
       if (row.name === tl.name) {
-        tl.tests.map(test => {
+        tl.tests.map((test) => {
           if (test.withinSet === false) {
-            style.color = "#f5c242"
+            style.color = "#f5c242";
           }
           if (test.withinAcceptance === false) {
-            style.color = "red"
+            style.color = "red";
           }
-        })
+        });
       } else if (row.name === "") {
-        tl.tests.map(test => {
+        tl.tests.map((test) => {
           if (row.testId === test.testId) {
             if (test.withinSet === false) {
-              style.color = "#f5c242"
+              style.color = "#f5c242";
             }
             if (test.withinAcceptance === false) {
-              style.color = "red"
+              style.color = "red";
             }
           }
-        })
+        });
       }
-    })
+    });
 
-    return style
-  }
+    return style;
+  };
 
   const handleInput = (e, measurementId) => {
     let i = inputs;
@@ -122,9 +137,9 @@ const TaskView = ({ fetchTaskList, fetchTestTemplate, postTestEvent, tasklist, t
 
   const handleBoolInput = (e, measurementId) => {
     let i = inputs;
-    i[measurementId] = e.target.value
+    i[measurementId] = e.target.value;
     setInputs(i);
-  }
+  };
 
   const handleComment = (e) => {
     let i = inputs;
@@ -133,13 +148,12 @@ const TaskView = ({ fetchTaskList, fetchTestTemplate, postTestEvent, tasklist, t
   };
 
   const handleSubmit = (event) => {
-    const form = event.currentTarget
+    const form = event.currentTarget;
     event.preventDefault();
 
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-
       testTemplate.results.map((result) => {
         result.value = inputs[result.measurementId];
         return true;
@@ -150,18 +164,18 @@ const TaskView = ({ fetchTaskList, fetchTestTemplate, postTestEvent, tasklist, t
 
       handleClose();
       setInputs({});
-      setValidated(false)
-      return
+      setValidated(false);
+      return;
     }
 
-    setValidated(true)
+    setValidated(true);
   };
 
   const handleTaskListExcelClick = () => {
     fetchTaskListExcel({
       devices: filter
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -169,9 +183,7 @@ const TaskView = ({ fetchTaskList, fetchTestTemplate, postTestEvent, tasklist, t
         <Card.Header>
           <Row>
             <Col>
-              <Card.Title className="font-weight-bold">
-                Työlista
-              </Card.Title>
+              <Card.Title className="font-weight-bold">Työlista</Card.Title>
             </Col>
           </Row>
         </Card.Header>
@@ -179,10 +191,17 @@ const TaskView = ({ fetchTaskList, fetchTestTemplate, postTestEvent, tasklist, t
 
       <Row className="p-2">
         <Col xs={4}>
-          <FilterData tasklist={tasklist} filter={filter} setFilter={setFilter} />
+          <FilterData
+            tasklist={tasklist}
+            filter={filter}
+            setFilter={setFilter}
+          />
         </Col>
         <Col xs={8} style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button style={{ marginLeft: "auto", height: "40px" }} onClick={() => handleTaskListExcelClick()}>
+          <Button
+            style={{ marginLeft: "auto", height: "40px" }}
+            onClick={() => handleTaskListExcelClick()}
+          >
             Lataa työlista
           </Button>
         </Col>
@@ -193,11 +212,18 @@ const TaskView = ({ fetchTaskList, fetchTestTemplate, postTestEvent, tasklist, t
           <Modal.Title>Lisää mittaus</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {(testTemplate !== null && testTemplate.results !== undefined && testTemplate.results.length > 0) ?
+          {testTemplate !== null &&
+          testTemplate.results !== undefined &&
+          testTemplate.results.length > 0 ? (
             <>
               <Row>
                 <Col>
-                  <Form id="test-event-form" onSubmit={e => handleSubmit(e)} noValidate validated={validated}>
+                  <Form
+                    id="test-event-form"
+                    onSubmit={(e) => handleSubmit(e)}
+                    noValidate
+                    validated={validated}
+                  >
                     <Table borderless={true}>
                       <thead>
                         <tr>
@@ -208,59 +234,75 @@ const TaskView = ({ fetchTaskList, fetchTestTemplate, postTestEvent, tasklist, t
                         </tr>
                       </thead>
                       <tbody id="measurements-table">
-                        {testTemplate !== null && testTemplate.results !== undefined &&
-                          testTemplate.results.filter(r => r.disabled !== true).map((result, i) => {
-                            return (
-                              <tr>
-                                {result.unit !== "totuusarvo" ?
-                                  <>
-                                    <td>{result.description}</td>
-                                    <td>{result.setLimitLow} {result.unit}</td>
-                                    <td>
-                                      <Form.Group>
-                                        <Form.Control
-                                          id={`measurement-${i}`}
-                                          type="number"
-                                          step="any"
-                                          onChange={(e) => handleInput(e, result.measurementId)}
-                                          required
-                                        />
-                                        <Form.Control.Feedback type="invalid">
-                                          Anna ominaisuuden tulos
-                                        </Form.Control.Feedback>
-                                      </Form.Group>
-                                    </td>
-                                    <td>{result.setLimitHigh} {result.unit}</td>
-                                  </>
-                                  :
-                                  <>
-                                    <td>{result.description}</td>
-                                    <td>{result.unit}</td>
-                                    <td>
-                                      <Form.Group>
-                                        <Form.Control
-                                          id={`measurement-${i}`}
-                                          as="select"
-                                          defaultValue={null}
-                                          onChange={(e) => handleBoolInput(e, result.measurementId)}
-                                          required
-                                        >
-                                          <option value={null} hidden />
-                                          <option value={1}>Kyllä</option>
-                                          <option value={-1}>Ei</option>
-                                        </Form.Control>
-                                        <Form.Control.Feedback type="invalid">
-                                          Anna ominaisuuden tulos
-                                        </Form.Control.Feedback>
-                                      </Form.Group>
-                                    </td>
-                                    <td></td>
-                                  </>
-                                }
-                              </tr>
-                            )
-                          })
-                        }
+                        {testTemplate !== null &&
+                          testTemplate.results !== undefined &&
+                          testTemplate.results
+                            .filter((r) => r.disabled !== true)
+                            .map((result, i) => {
+                              return (
+                                <tr>
+                                  {result.unit !== "totuusarvo" ? (
+                                    <>
+                                      <td>{result.description}</td>
+                                      <td>
+                                        {result.setLimitLow} {result.unit}
+                                      </td>
+                                      <td>
+                                        <Form.Group>
+                                          <Form.Control
+                                            id={`measurement-${i}`}
+                                            type="number"
+                                            step="any"
+                                            onChange={(e) =>
+                                              handleInput(
+                                                e,
+                                                result.measurementId
+                                              )
+                                            }
+                                            required
+                                          />
+                                          <Form.Control.Feedback type="invalid">
+                                            Anna ominaisuuden tulos
+                                          </Form.Control.Feedback>
+                                        </Form.Group>
+                                      </td>
+                                      <td>
+                                        {result.setLimitHigh} {result.unit}
+                                      </td>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <td>{result.description}</td>
+                                      <td>{result.unit}</td>
+                                      <td>
+                                        <Form.Group>
+                                          <Form.Control
+                                            id={`measurement-${i}`}
+                                            as="select"
+                                            defaultValue={null}
+                                            onChange={(e) =>
+                                              handleBoolInput(
+                                                e,
+                                                result.measurementId
+                                              )
+                                            }
+                                            required
+                                          >
+                                            <option value={null} hidden />
+                                            <option value={1}>Kyllä</option>
+                                            <option value={-1}>Ei</option>
+                                          </Form.Control>
+                                          <Form.Control.Feedback type="invalid">
+                                            Anna ominaisuuden tulos
+                                          </Form.Control.Feedback>
+                                        </Form.Group>
+                                      </td>
+                                      <td></td>
+                                    </>
+                                  )}
+                                </tr>
+                              );
+                            })}
                       </tbody>
                     </Table>
                   </Form>
@@ -268,7 +310,9 @@ const TaskView = ({ fetchTaskList, fetchTestTemplate, postTestEvent, tasklist, t
               </Row>
               <Row>
                 <Col className="ml-2" xs={2}>
-                  <div><b>Lisää kommentti</b></div>
+                  <div>
+                    <b>Lisää kommentti</b>
+                  </div>
                 </Col>
                 <Col xs={6}>
                   <textarea
@@ -278,17 +322,24 @@ const TaskView = ({ fetchTaskList, fetchTestTemplate, postTestEvent, tasklist, t
                   />
                 </Col>
               </Row>
-              <Button id="measurement-btn" type="submit" form="test-event-form" className="m-2">
+              <Button
+                id="measurement-btn"
+                type="submit"
+                form="test-event-form"
+                className="m-2"
+              >
                 Hyväksy
               </Button>
             </>
-            :
-            <div><i>Testillä ei ole ominaisuuksia</i></div>
-          }
+          ) : (
+            <div>
+              <i>Testillä ei ole ominaisuuksia</i>
+            </div>
+          )}
         </Modal.Body>
       </Modal>
 
-      <BootstrapTable
+      <TaskTable
         keyField="id"
         data={formattedData}
         columns={columns}

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import AttachmentProcess from "./attachmentprocess";
 import Menu from "./menu";
 import DeviceView from "./deviceview";
-/* import TaskView from "./taskview"; */
+import TaskView from "./taskview";
 import PersonAdminView from "./personadminview";
 import AddTestEvent from "./testeventview";
 import LogoutView from "./logoutview";
@@ -18,9 +18,8 @@ import ExaminationAdminView from "./examinationview";
 
 import { fetchWhoAmI, fetchState } from "./actions";
 
-/* These routes to be refactored 
-        <Route exact path="/tasklist" component={TaskView} />
-*/
+/* These routes to be refactored
+ */
 
 function App({ fetchWhoAmI, fetchState, person }) {
   useEffect(() => {
@@ -35,6 +34,7 @@ function App({ fetchWhoAmI, fetchState, person }) {
       <Routes>
         <Route exact path="/" element={<DeviceView />} />
         <Route exact path="/devices" element={<consoleDeviceView />} />
+        <Route exact path="/tasklist" element={<TaskView />} />
         <Route exact path="/admin/rights" element={<PersonAdminView />} />
         <Route exact path="/testevent" element={<AddTestEvent />} />
         <Route exact path="/logout" element={<LogoutView />} />
