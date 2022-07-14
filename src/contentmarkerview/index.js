@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { Card, Col, Form, Row } from "react-bootstrap";
 import ContentMarkerTable from "./contentmarkertable";
 
 import {
@@ -45,59 +45,6 @@ const ContentmarkerView = ({
     }
   };
 
-  const buttonFormatter = (cell, row, rowIndex, formatExtradata) => {
-    return (
-      <>
-        {console.log(row)}
-        {showAll === false && (
-          <Button
-            id={`taskid-${row.taskId}`}
-            onClick={() => addContentmarker(person, row)}
-          >
-            Kuittaa
-          </Button>
-        )}
-        {showAll === true && (
-          <>
-            {row.contentMarker && (
-              <Button variant="success" active>
-                OK
-              </Button>
-            )}
-          </>
-        )}
-      </>
-    );
-  };
-
-  const columns = [
-    {
-      dataField: "name",
-      text: "Sisältömerkintä",
-      formatter: buttonFormatter
-    },
-    {
-      dataField: "tutkimusPaiva",
-      text: "Tutkimuspäivä"
-    },
-    {
-      dataField: "tutkimus.label",
-      text: "Tutkimus"
-    },
-    {
-      dataField: "hetu",
-      text: "Potilaan henkilötunnus"
-    },
-    {
-      dataField: "sukunimi",
-      text: "Potilaan sukunimi"
-    },
-    {
-      dataField: "vastaanottoPaiva",
-      text: "Potilaan vastaanotto"
-    }
-  ];
-
   return (
     <>
       <Card>
@@ -130,7 +77,6 @@ const ContentmarkerView = ({
             addContentmarker={addContentmarker}
             showAll={showAll}
             keyField="id"
-            columns={columns}
             data={tableData}
           />
         </Card.Body>

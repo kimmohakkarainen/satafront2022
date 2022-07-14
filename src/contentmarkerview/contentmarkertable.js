@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, Badge } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 
 const ButtonFormatter = ({ row, showAll, addContentmarker, person }) => {
   return (
