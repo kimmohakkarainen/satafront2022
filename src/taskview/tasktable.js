@@ -43,18 +43,23 @@ export default function TaskTable({ data, setShow, filter }) {
             rowstyle.color = "red";
           }
           return (
-            <>
-              <tr style={rowstyle} key={10000 + row.deviceId}>
+            <React.Fragment key={row.deviceId}>
+              <tr style={rowstyle} key={row.deviceId}>
                 <td>{row.name}</td>
                 <td />
                 <TestDates dates={row.dates} />
               </tr>
               {row.tests.map((t, i) => {
                 return (
-                  <TestRow key={i} device={row} test={t} setShow={setShow} />
+                  <TestRow
+                    key={row.deviceId + "." + i}
+                    device={row}
+                    test={t}
+                    setShow={setShow}
+                  />
                 );
               })}
-            </>
+            </React.Fragment>
           );
         })}
       </tbody>
