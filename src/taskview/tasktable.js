@@ -1,5 +1,6 @@
 import React from "react";
 import { Table } from "react-bootstrap";
+import moment from "moment";
 
 import { WeekNumber } from "../utils/week.js";
 
@@ -19,17 +20,47 @@ export default function TaskTable({ data }) {
       </thead>
       <tbody>
         {data.map((row) => {
-          console.log(row);
           return (
-            <tr>
-              <td>{row.name}</td>
-              <td>{row.description}</td>
-              <td>{row.week1}</td>
-              <td>{row.week2}</td>
-              <td>{row.week3}</td>
-              <td>{row.week4}</td>
-              <td>{row.week5}</td>
-            </tr>
+            <>
+              <tr
+                style={{
+                  backgroundColor: "rgba(0,0,0,.075)",
+                  fontWeight: "bold"
+                }}
+              >
+                <td>{row.name}</td>
+                <td />
+                {row.dates.map((d) => {
+                  if (d.testDate === null) return <td />;
+                  else
+                    return <td>{moment(d.testDate).format("DD.MM.YYYY")}</td>;
+                })}
+              </tr>
+              {row.tests.map((t) => {
+                const style = {
+                  backgroundColor: "transparent"
+                };
+                if (t.withinSet === false) {
+                  style.color = "#f5c242";
+                }
+                if (t.withinAcceptance === false) {
+                  style.color = "red";
+                }
+                return (
+                  <tr style={style}>
+                    <td />
+                    <td>{t.description}</td>
+                    {t.dates.map((d) => {
+                      if (d.testDate === null) return <td />;
+                      else
+                        return (
+                          <td>{moment(d.testDate).format("DD.MM.YYYY")}</td>
+                        );
+                    })}
+                  </tr>
+                );
+              })}
+            </>
           );
         })}
       </tbody>
