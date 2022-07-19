@@ -33,7 +33,7 @@ function App({ fetchWhoAmI, fetchState, person }) {
       <Menu />
       <Routes>
         <Route exact path="/" element={<DeviceView />} />
-        <Route exact path="/devices" element={<consoleDeviceView />} />
+        <Route exact path="/devices" element={<DeviceView />} />
         <Route exact path="/tasklist" element={<TaskView />} />
         <Route exact path="/admin/rights" element={<PersonAdminView />} />
         <Route exact path="/testevent" element={<AddTestEvent />} />
