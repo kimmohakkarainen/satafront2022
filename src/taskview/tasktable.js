@@ -1,8 +1,8 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-import moment from "moment";
 
 import { WeekNumber } from "../utils/week.js";
+import { TestRow, TestDates } from "./testrow";
 
 export default function TaskTable({ data, setShow, filter }) {
   let deviceIds = [];
@@ -44,45 +44,14 @@ export default function TaskTable({ data, setShow, filter }) {
           }
           return (
             <>
-              <tr style={rowstyle} key={"d" + row.deviceId}>
+              <tr style={rowstyle} key={10000 + row.deviceId}>
                 <td>{row.name}</td>
                 <td />
-                {row.dates.map((d, i) => {
-                  if (d.testDate === null) return <td key={i} />;
-                  else
-                    return (
-                      <td key={i}>{moment(d.testDate).format("DD.MM.YYYY")}</td>
-                    );
-                })}
+                <TestDates dates={row.dates} />
               </tr>
-              {row.tests.map((t) => {
-                const style = {
-                  backgroundColor: "transparent"
-                };
-                if (t.withinSet === false) {
-                  style.color = "#f5c242";
-                }
-                if (t.withinAcceptance === false) {
-                  style.color = "red";
-                }
+              {row.tests.map((t, i) => {
                 return (
-                  <tr
-                    style={style}
-                    key={row.deviceId + "." + t.testId}
-                    onClick={() => setShow(t.testId)}
-                  >
-                    <td />
-                    <td>{t.description}</td>
-                    {t.dates.map((d, i) => {
-                      if (d.testDate === null) return <td key={i} />;
-                      else
-                        return (
-                          <td key={i}>
-                            {moment(d.testDate).format("DD.MM.YYYY")}
-                          </td>
-                        );
-                    })}
-                  </tr>
+                  <TestRow key={i} device={row} test={t} setShow={setShow} />
                 );
               })}
             </>
