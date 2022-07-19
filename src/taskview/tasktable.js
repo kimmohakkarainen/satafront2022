@@ -4,22 +4,37 @@ import moment from "moment";
 
 import { WeekNumber } from "../utils/week.js";
 
-export default function TaskTable({ data, setShow }) {
+export default function TaskTable({ data, setShow, filter }) {
+  let deviceIds = [];
+  let list = [];
+
+  if (filter.length > 0) {
+    deviceIds = filter.map((filt) => filt.deviceId);
+
+    data.forEach((d) => {
+      if (deviceIds.includes(d.deviceId)) {
+        list.push(d);
+      }
+    });
+  } else {
+    list = data;
+  }
+
   return (
     <Table bordered hover>
       <thead>
-        <tr>
-          <th>Laitteen nimi</th>
-          <th>Testi</th>
-          <th>Viikko {WeekNumber(new Date(), 0)}</th>
-          <th>Viikko {WeekNumber(new Date(), 1)}</th>
-          <th>Viikko {WeekNumber(new Date(), 2)}</th>
-          <th>Viikko {WeekNumber(new Date(), 3)}</th>
-          <th>Viikko {WeekNumber(new Date(), 4)}</th>
+        <tr key={-1}>
+          <th key={0}>Laitteen nimi</th>
+          <th key={1}>Testi</th>
+          <th key={2}>Viikko {WeekNumber(new Date(), 0)}</th>
+          <th key={3}>Viikko {WeekNumber(new Date(), 1)}</th>
+          <th key={4}>Viikko {WeekNumber(new Date(), 2)}</th>
+          <th key={5}>Viikko {WeekNumber(new Date(), 3)}</th>
+          <th key={6}>Viikko {WeekNumber(new Date(), 4)}</th>
         </tr>
       </thead>
       <tbody>
-        {data.map((row) => {
+        {list.map((row) => {
           const rowstyle = {
             backgroundColor: "rgba(0,0,0,.075)",
             fontWeight: "bold"
@@ -30,8 +45,8 @@ export default function TaskTable({ data, setShow }) {
           return (
             <>
               <tr style={rowstyle} key={"d" + row.deviceId}>
-                <td key={-2}>{row.name}</td>
-                <td key={-1} />
+                <td>{row.name}</td>
+                <td />
                 {row.dates.map((d, i) => {
                   if (d.testDate === null) return <td key={i} />;
                   else

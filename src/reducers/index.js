@@ -1,4 +1,3 @@
-
 const initialState = {
   error: null,
   person: null,
@@ -14,7 +13,7 @@ const initialState = {
   eventItem: null,
   activeDevice: null,
   activeTest: null,
-  searchParams: '',
+  searchParams: "",
   testTemplate: [],
   persons: [],
   tags: [],
@@ -39,7 +38,6 @@ const initialState = {
 };
 
 export default function tieto2State(state = initialState, action) {
-  /* console.log(action); */
   if (action.type === "LOGOUT_SUCCEEDED") {
     return initialState;
   } else {

@@ -57,7 +57,7 @@ function TestEventModal({
                           .filter((r) => r.disabled !== true)
                           .map((result, i) => {
                             return (
-                              <tr>
+                              <tr key={i}>
                                 {result.unit !== "totuusarvo" ? (
                                   <>
                                     <td>{result.description}</td>

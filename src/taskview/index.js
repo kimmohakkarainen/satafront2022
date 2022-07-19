@@ -26,7 +26,7 @@ const TaskView = ({
 }) => {
   const [inputs, setInputs] = useState({});
   const [show, setShow] = useState(null);
-  const [filter, setFilter] = useState();
+  const [filter, setFilter] = useState([]);
   const [errorOccured, setErrorOccured] = useState(false);
   const [validated, setValidated] = useState(false);
 
