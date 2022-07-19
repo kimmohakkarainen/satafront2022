@@ -43,17 +43,13 @@ function Menu({ clearError, person, error }) {
           <Nav id="loggedUsr">
             <NavDropdown align="end" title={fullname} id="user-dropdown">
               <LinkContainer to="/password">
-                <NavDropdown.Item
-                  eventKey={6}
-                  id="menu-password"
-                  eventKey={6.1}
-                >
+                <NavDropdown.Item id="menu-password" eventKey={6.1}>
                   Vaihda salasana
                 </NavDropdown.Item>
               </LinkContainer>
-              <NavDropdown.Item divider />
+              <NavDropdown.Divider />
               <LinkContainer to="/logout">
-                <NavDropdown.Item eventKey={7} id="menu-logout" eventKey={6.4}>
+                <NavDropdown.Item id="menu-logout" eventKey={6.4}>
                   Kirjaudu ulos
                 </NavDropdown.Item>
               </LinkContainer>
