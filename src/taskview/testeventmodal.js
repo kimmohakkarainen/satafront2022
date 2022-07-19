@@ -1,14 +1,28 @@
-import React, { useReducer } from "react";
-import { Modal, Form, Button } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Modal, Form, Button, Table, Row, Col } from "react-bootstrap";
+import { connect } from "react-redux";
+import { fetchTestTemplate } from "../actions";
 
-export default function TestEventModal({
+function TestEventModal({
   show,
   handleClose,
   testTemplate,
   handleInput,
   handleBoolInput,
-  handleComment
+  handleComment,
+  handleSubmit,
+  fetchTestTemplate
 }) {
+  const validated = true;
+
+  useEffect(() => {
+    if (show === null) {
+      /* do nothing */
+    } else {
+      fetchTestTemplate(show);
+    }
+  }, [show, fetchTestTemplate]);
+
   return (
     <Modal show={show} onHide={handleClose} size="lg" backdrop="static">
       <Modal.Header closeButton>
@@ -140,3 +154,19 @@ export default function TestEventModal({
     </Modal>
   );
 }
+
+const mapStateToProps = (state) => {
+  if (state === null) {
+    return { devices: [], tests: [], testTemplate: [], error: null };
+  } else {
+    return state;
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchTestTemplate: (id) => dispatch(fetchTestTemplate(id))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TestEventModal);

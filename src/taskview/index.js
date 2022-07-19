@@ -25,13 +25,13 @@ const TaskView = ({
   fetchTaskListExcel
 }) => {
   const [inputs, setInputs] = useState({});
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(null);
   const [filter, setFilter] = useState();
   const [errorOccured, setErrorOccured] = useState(false);
   const [validated, setValidated] = useState(false);
 
   const handleClose = () => {
-    setShow(false);
+    setShow(null);
     setErrorOccured(false);
   };
   const handleShow = () => setShow(true);
@@ -176,11 +176,13 @@ const TaskView = ({
         handleInput={handleInput}
         handleComment={handleComment}
         handleBoolInput={handleBoolInput}
+        handleSubmit={handleSubmit}
       />
 
       <TaskTable
         keyField="id"
         data={tasklist}
+        setShow={setShow}
         filter={filter}
         rowEvents={rowEvents}
         rowStyle={rowStyle}

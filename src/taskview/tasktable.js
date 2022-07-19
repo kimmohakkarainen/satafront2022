@@ -4,7 +4,7 @@ import moment from "moment";
 
 import { WeekNumber } from "../utils/week.js";
 
-export default function TaskTable({ data }) {
+export default function TaskTable({ data, setShow }) {
   return (
     <Table bordered hover>
       <thead>
@@ -20,20 +20,24 @@ export default function TaskTable({ data }) {
       </thead>
       <tbody>
         {data.map((row) => {
+          const rowstyle = {
+            backgroundColor: "rgba(0,0,0,.075)",
+            fontWeight: "bold"
+          };
+          if (row.correctiveActionRequired) {
+            rowstyle.color = "red";
+          }
           return (
             <>
-              <tr
-                style={{
-                  backgroundColor: "rgba(0,0,0,.075)",
-                  fontWeight: "bold"
-                }}
-              >
-                <td>{row.name}</td>
-                <td />
-                {row.dates.map((d) => {
-                  if (d.testDate === null) return <td />;
+              <tr style={rowstyle} key={"d" + row.deviceId}>
+                <td key={-2}>{row.name}</td>
+                <td key={-1} />
+                {row.dates.map((d, i) => {
+                  if (d.testDate === null) return <td key={i} />;
                   else
-                    return <td>{moment(d.testDate).format("DD.MM.YYYY")}</td>;
+                    return (
+                      <td key={i}>{moment(d.testDate).format("DD.MM.YYYY")}</td>
+                    );
                 })}
               </tr>
               {row.tests.map((t) => {
@@ -47,14 +51,20 @@ export default function TaskTable({ data }) {
                   style.color = "red";
                 }
                 return (
-                  <tr style={style}>
+                  <tr
+                    style={style}
+                    key={row.deviceId + "." + t.testId}
+                    onClick={() => setShow(t.testId)}
+                  >
                     <td />
                     <td>{t.description}</td>
-                    {t.dates.map((d) => {
-                      if (d.testDate === null) return <td />;
+                    {t.dates.map((d, i) => {
+                      if (d.testDate === null) return <td key={i} />;
                       else
                         return (
-                          <td>{moment(d.testDate).format("DD.MM.YYYY")}</td>
+                          <td key={i}>
+                            {moment(d.testDate).format("DD.MM.YYYY")}
+                          </td>
                         );
                     })}
                   </tr>
