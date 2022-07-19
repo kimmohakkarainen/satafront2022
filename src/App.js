@@ -18,14 +18,11 @@ import ExaminationAdminView from "./examinationview";
 
 import { fetchWhoAmI, fetchState } from "./actions";
 
-/* These routes to be refactored
- */
-
 function App({ fetchWhoAmI, fetchState, person }) {
   useEffect(() => {
     fetchWhoAmI();
     setInterval(() => fetchState(), 30000);
-  }, [fetchWhoAmI]);
+  }, [fetchWhoAmI, fetchState]);
 
   return (
     <BrowserRouter>
