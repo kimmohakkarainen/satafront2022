@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Col, Form, FormGroup, FormLabel, Table } from "react-bootstrap";
+import { Row, Col, Form, FormGroup, FormLabel, Table } from "react-bootstrap";
 
 import { searchDevice } from "../actions";
 
-const DeviceList = ({ devices, activeDevice, activeTest, searchParams, searchDevice }) => {
-
+const DeviceList = ({
+  devices,
+  activeDevice,
+  activeTest,
+  searchParams,
+  searchDevice
+}) => {
   const deviceId = activeDevice == null ? null : activeDevice.deviceId;
   const testId = activeTest == null ? null : activeTest.testId;
-  const [searchTerm, setSearchTerm] = useState(null)
+  const [searchTerm, setSearchTerm] = useState(null);
 
   useEffect(() => {
     searchDevice(deviceId, testId, searchParams);
-  }, []);
+  });
 
   useEffect(() => {
-    const timeOutId = setTimeout(() => searchDevice(deviceId, testId, searchTerm), 500)
-    return () => clearTimeout(timeOutId)
-  }, [searchTerm])
+    const timeOutId = setTimeout(
+      () => searchDevice(deviceId, testId, searchTerm),
+      500
+    );
+    return () => clearTimeout(timeOutId);
+  }, [searchTerm, searchDevice, deviceId, testId]);
 
   const handleActiveDevice = (id) => {
     searchDevice(id, null, searchParams);
@@ -26,14 +34,19 @@ const DeviceList = ({ devices, activeDevice, activeTest, searchParams, searchDev
   return (
     <>
       <Form>
-        <Form.Row className="align-items-center">
+        <Row className="align-items-center">
           <Col sm={12}>
             <FormGroup>
               <FormLabel className="font-weight-bold">Haku</FormLabel>
-              <Form.Control id="input-search-device" name="device" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+              <Form.Control
+                id="input-search-device"
+                name="device"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </FormGroup>
           </Col>
-        </Form.Row>
+        </Row>
       </Form>
       <div
         style={{
@@ -53,7 +66,14 @@ const DeviceList = ({ devices, activeDevice, activeTest, searchParams, searchDev
             {devices.map((device, index) => {
               return (
                 <tr key={device.deviceId}>
-                  <td id={`deviceList-${index}`} onClick={(e) => { handleActiveDevice(device.deviceId); }} >{device.name}</td>
+                  <td
+                    id={`deviceList-${index}`}
+                    onClick={(e) => {
+                      handleActiveDevice(device.deviceId);
+                    }}
+                  >
+                    {device.name}
+                  </td>
                 </tr>
               );
             })}
@@ -74,7 +94,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchDevice: (deviceId, testId, searchParams) => dispatch(searchDevice(deviceId, testId, searchParams)),
+    searchDevice: (deviceId, testId, searchParams) =>
+      dispatch(searchDevice(deviceId, testId, searchParams))
   };
 };
 
